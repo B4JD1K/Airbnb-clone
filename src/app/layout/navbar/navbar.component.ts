@@ -5,6 +5,8 @@ import {ToolbarModule} from "primeng/toolbar";
 import {MenuModule} from "primeng/menu";
 import {DialogService} from "primeng/dynamicdialog";
 import {MenuItem} from "primeng/api";
+import {AvatarComponent} from "./avatar/avatar.component";
+import {CategoryComponent} from "./category/category.component";
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +15,9 @@ import {MenuItem} from "primeng/api";
     ButtonModule,
     FontAwesomeModule,
     ToolbarModule,
-    MenuModule
+    MenuModule,
+    AvatarComponent,
+    CategoryComponent
   ],
   providers: [DialogService],
   templateUrl: './navbar.component.html',
