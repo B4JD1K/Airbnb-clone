@@ -1,4 +1,4 @@
-package fr.codecake.airbnb_clone_back;
+package pl.b4jd1k.airbnb_clone_back;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
