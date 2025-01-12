@@ -1,3 +1,8 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://my_ip:my_port/airbnb_clone
+    username: postgres
+    password: postgres
   liquibase:
     contexts: dev
+    default_schema: airbnb_clone
