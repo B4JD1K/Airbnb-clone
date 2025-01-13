@@ -29,7 +29,7 @@ public class ListingPicture extends AbstractAuditingEntity<Long> {
   private String fileContentType;
 
   // czy dane zdjęcie jest okładką
-  @Column(name = "cover")
+  @Column(name = "is_cover")
   private boolean isCover;
 
   @Override
