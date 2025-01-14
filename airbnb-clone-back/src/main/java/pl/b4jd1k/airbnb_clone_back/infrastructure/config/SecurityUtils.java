@@ -77,25 +77,27 @@ public class SecurityUtils {
     return (List<String>) claims.get(CLAIMS_NAMESPACE);
   }
 
-  // mapuje role (stringi) na SimpleGrantedAuthority
+  // mapuje listę ról (jako string) zaczynających się od "ROLE_", na obiekty SimpleGrantedAuthority
   public static List<SimpleGrantedAuthority> mapRolesToGrantedAuthorities(Collection<String> roles) {
     return roles.stream()
-      .filter(role -> role.startsWith("ROLE_"))
-      .map(SimpleGrantedAuthority::new).toList();
+      .filter(role -> role.startsWith("ROLE_")) // filtruje role zaczynające się od "ROLE_"
+      .map(SimpleGrantedAuthority::new) // tworzy obiekty SimpleGrantedAuthority dla każdej roli
+      .toList(); // i zbiera wynik do listy
   }
 
-  // sprawdza czy zalogowany użytkownik ma jedną z podanych ról (ROLE_XYZ)
+  // sprawdza czy zalogowany użytkownik ma co najmniej jedną z podanych ról (ROLE_XYZ)
   public static boolean hasCurrentUserAnyOfAuthorities(String... authorities) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    return (authentication != null && getAuthorities(authentication)
-      .anyMatch(authority -> Arrays.asList(authorities).contains(authority)));
+    return (authentication != null && getAuthorities(authentication) // pobiera role użytkownika
+      .anyMatch(authority -> Arrays.asList(authorities).contains(authority))); // prawdza, czy którakolwiek nazwa roli użytkownika znajduje się w podanej tablicy 'authorities'
   }
 
   // pobiera strumień nazw ról z obiektu Authentication
   private static Stream<String> getAuthorities(Authentication authentication) {
     Collection<? extends GrantedAuthority> authorities = authentication
-      instanceof JwtAuthenticationToken jwtAuthenticationToken ?
-      extractAuthorityFromClaims(jwtAuthenticationToken.getToken().getClaims()) : authentication.getAuthorities();
-    return authorities.stream().map(GrantedAuthority::getAuthority);
+      instanceof JwtAuthenticationToken jwtAuthenticationToken ? // jeśli authentication jest JwtAuthenticationToken
+      extractAuthorityFromClaims(jwtAuthenticationToken.getToken().getClaims()) : // to wyciąga role z claims
+      authentication.getAuthorities(); // w przeciwnym razie pobiera role bezpośrednio
+    return authorities.stream().map(GrantedAuthority::getAuthority); // następnie mapuje obiekty GrantedAuthority na nazwy ról
   }
 }
