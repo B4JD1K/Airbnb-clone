@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnInit} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ToolbarModule} from "primeng/toolbar";
@@ -8,6 +8,8 @@ import {MenuItem} from "primeng/api";
 import {AvatarComponent} from "./avatar/avatar.component";
 import {CategoryComponent} from "./category/category.component";
 import {ToastService} from "../toast.service";
+import {AuthService} from "../../core/auth/auth.service";
+import {User} from "../../core/model/user.model";
 
 @Component({
   selector: 'app-navbar',
@@ -32,28 +34,68 @@ export class NavbarComponent implements OnInit {
 
   // wstrzyknięcie zależności ToastService
   toastService = inject(ToastService);
+  authService = inject(AuthService);
 
-  // to do
-  // login () => this.authService.login();
-  //
-  // logout () => this.authService.logout();
+  login = () => this.authService.login();
+
+  logout = () => this.authService.logout();
 
   currentMenuItems: MenuItem[] | undefined = [];
 
-  ngOnInit() {
-    this.fetchMenu();
-    // wysłanie wiadomości toast o podanej treści z rodzajem(poziomem) 'info'
-    this.toastService.send({severity: "info", summary: "Welcome to your airbnb app!"})
+  connectedUser: User = {email: this.authService.notConnected};
+
+  // kiedy status użytkownika (stan) zmieni się - effect automatycznie zadziała i wykona swoją logikę
+  constructor() {
+    effect(() => {
+      if (this.authService.fetchUser().status === "OK") {
+        this.connectedUser = this.authService.fetchUser().value!;
+        this.currentMenuItems = this.fetchMenu(); // wygeneruje listę elementów menu, dostosowaną do uprawnień
+      }
+    });
   }
 
-  private fetchMenu() {
-    return [
-      {
-        label: "Sign up",
-        styleClass: "font-bold"
-      }, {
-        label: "Log in",
-      }
-    ]
+  ngOnInit() {
+    this.authService.fetch(false);
+  }
+
+  private fetchMenu(): MenuItem[] {
+    if (this.authService.isAuthenticated()) {
+      return [
+        {
+          label: "My properties",
+          routerLink: "landlord/properties",
+          visible: this.hasToBeLandlord(),
+        },
+        {
+          label: "My booking",
+          routerLink: "booking",
+        },
+        {
+          label: "My reservation",
+          routerLink: "landlord/reservation",
+          visible: this.hasToBeLandlord(),
+        },
+        {
+          label: "Log out",
+          command: this.logout
+        },
+      ]
+    } else {
+      return [
+        {
+          label: "Sign up",
+          styleClass: "font-bold",
+          command: this.login
+        },
+        {
+          label: "Log in",
+          command: this.login
+        }
+      ]
+    }
+  }
+
+  hasToBeLandlord(): boolean {
+    return this.authService.hasAnyAuthority("ROLE_LANDLORD");
   }
 }
