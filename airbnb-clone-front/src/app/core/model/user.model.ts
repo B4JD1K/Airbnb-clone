@@ -3,5 +3,5 @@ export interface User {
   lastName?: string;
   email?: string;
   imageUrl?: string;
-  authorities?: string[];
+  authorities: string[];
 }
