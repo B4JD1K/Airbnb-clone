@@ -2,13 +2,13 @@ logging:
   level:
     ROOT: info
     org.hibernate.SQL: INFO
-    pl.b4jd1k.airbnbcloneback: INFO
+    pl.b4jd1k.airbnb_clone_back: INFO
 
 spring:
   datasource:
-    url: jdbc:postgresql://${POSTGRES_URL}:5432/${POSTGRES_DB}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+#    url: jdbc:postgresql://192.168.1.17:32769/airbnb_clone
+#    username: superadmindb
+#    password: superadmindb
   jpa:
     properties:
       hibernate:

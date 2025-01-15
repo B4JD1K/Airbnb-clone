@@ -2,9 +2,13 @@ logging:
   level:
     ROOT: INFO
     org.hibernate.SQL: DEBUG
-    pl.b4jd1k.airbnbcloneback: DEBUG
+    pl.b4jd1k.airbnb_clone_back: DEBUG
+
 
 spring:
+  docker:
+    compose:
+      enabled: false
   profiles:
     active: dev
   application:
@@ -39,11 +43,11 @@ spring:
 server:
   port: 8080
 
-#okta:
-#  oauth2:
-#    issuer: https://airbnb-clone.us.auth0.com/
-#    client-id: ${AUTH0_CLIENT_ID}
-#    client-secret: ${AUTH0_CLIENT_SECRET}
+okta:
+  oauth2:
+    issuer: https://dev-spuie3es6mngirau.us.auth0.com/
+    client-id: ${AUTH0_CLIENT_ID}
+    client-secret: ${AUTH0_CLIENT_SECRET}
 
 application:
   auth0:
