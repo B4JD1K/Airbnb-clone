@@ -1,6 +1,7 @@
 package pl.b4jd1k.airbnb_clone_back.user.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 import pl.b4jd1k.airbnb_clone_back.sharedkernel.domain.AbstractAuditingEntity;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.UUID;
 // - pozwala na zapis obiektów do pliku, przesył przez sieć, przechowywanie w cache lub odczyt
 @Entity
 @Table(name = "airbnb_user")
-public class User extends AbstractAuditingEntity<Long> implements Serializable {
+public class User extends AbstractAuditingEntity<Long> {
 
   // @GeneratedValue - sposób generowania wartości 'id',
   // @SequenceGenerator - definiuje generator sekwencji 'user_generator' o alokacji przyrastającej o 1
@@ -36,6 +37,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
   @Column(name = "image_url")
   private String imageUrl;
 
+  @UuidGenerator
   @Column(name = "public_id", nullable = false)
   private UUID publicId;
 
@@ -107,14 +109,15 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
   // porównywanie obiektów 'User' - oba są równe jeżeli mają takie same wartości pól
   @Override
   public boolean equals(Object o) {
+    if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(imageUrl, user.imageUrl) && Objects.equals(publicId, user.publicId) && Objects.equals(authorities, user.authorities);
+    return Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(imageUrl, user.imageUrl) && Objects.equals(publicId, user.publicId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, lastName, firstName, email, imageUrl, publicId, authorities);
+    return Objects.hash(lastName, firstName, email, imageUrl, publicId);
   }
 
   @Override
