@@ -1,0 +1,18 @@
+logging:
+  level:
+    ROOT: info
+    org.hibernate.SQL: INFO
+    pl.b4jd1k.airbnb_clone_back: INFO
+
+spring:
+  datasource:
+#    url: jdbc:postgresql://192.168.1.17:32769/airbnb_clone
+#    username: superadmindb
+#    password: superadmindb
+  jpa:
+    properties:
+      hibernate:
+        default_schema: airbnb_clone
+  liquibase:
+    contexts: prod
+    default-schema: airbnb_clone
