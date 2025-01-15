@@ -26,7 +26,9 @@
     </div>
     <!-- na małych ekranach będzie ukryte, na średnich i większych będzie flexbox -->
     <div class="p-toolbar-group-end sm:hidden md:flex">
-      <a class="p-button p-button-link">Airbnb your home</a>
+      @if (authService.isAuthenticated()) {
+        <a class="p-button p-button-link">Airbnb your home</a>
+      }
       <!-- #menu to referencja lokalna do menu, dzięki niej można wywoływać metody - takie jak "menu.toogle($event)" -->
       <!-- [popup] - menu otwiera się jako wyskakujące okno -->
       <p-menu #menu [model]="currentMenuItems" [popup]="true" styleClass="border-round-xl mt-1"></p-menu>
@@ -35,7 +37,7 @@
       <button (click)="menu.toggle($event)" class="menu flex align-content-center justify-content-around
       ml-2 pl-3 p-2 border-gray-300 focus:shadow-none hover:shadow-1 border-round-3xl bg-white p-button">
         <fa-icon [icon]="'bars'" class="text-sm text-dark mr-3"></fa-icon>
-        <app-avatar [imageUrl]="" avatarSize="avatar-sm"></app-avatar>
+        <app-avatar [imageUrl]="connectedUser.imageUrl" avatarSize="avatar-sm"></app-avatar>
       </button>
     </div>
   </p-toolbar>
