@@ -17,7 +17,7 @@ public class SecurityUtils {
   public static final String ROLE_TENANT = "ROLE_TENANT";
   public static final String ROLE_LANDLORD = "ROLE_LANDLORD";
 
-  public static final String CLAIMS_NAMESPACE = "https://bj4d1k.pl/roles";
+  public static final String CLAIMS_NAMESPACE = "https://www.b4jd1k.pl/roles";
 
   public static User mapOauth2AttributesToUser(Map<String, Object> attributes) {
     User user = new User();
