@@ -4,15 +4,11 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 import pl.b4jd1k.airbnb_clone_back.sharedkernel.domain.AbstractAuditingEntity;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-// Serializable - interfejs markowy, bez metod,
-// - dzięki temu klasa może być serializowana, czyli przekształcana do strumienia bajtów
-// - pozwala na zapis obiektów do pliku, przesył przez sieć, przechowywanie w cache lub odczyt
 @Entity
 @Table(name = "airbnb_user")
 public class User extends AbstractAuditingEntity<Long> {
