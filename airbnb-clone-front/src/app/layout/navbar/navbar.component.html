@@ -27,7 +27,7 @@
     <!-- na małych ekranach będzie ukryte, na średnich i większych będzie flexbox -->
     <div class="p-toolbar-group-end sm:hidden md:flex">
       @if (authService.isAuthenticated()) {
-        <a class="p-button p-button-link">Airbnb your home</a>
+        <a class="p-button p-button-link" (click)="openNewListing()">Airbnb your home</a>
       }
       <!-- #menu to referencja lokalna do menu, dzięki niej można wywoływać metody - takie jak "menu.toogle($event)" -->
       <!-- [popup] - menu otwiera się jako wyskakujące okno -->
