@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.mapstruct.Mapping;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +58,7 @@ public class LandlordResource {
     saveListingDTO.setPictures(pictures);
 
     Set<ConstraintViolation<SaveListingDTO>> violations = validator.validate(saveListingDTO);
-    if (violations.isEmpty() ) {
+    if (!violations.isEmpty() ) {
       String violationsJoined = violations.stream()
         .map(violation -> violation.getPropertyPath() + " " + violation.getMessage())
         .collect(Collectors.joining());

@@ -20,7 +20,7 @@ export class LandlordListingService {
 
   create(newListing: NewListing): void {
     const formData = new FormData();
-    for (let i = 0; i < newListing.pictures.length; i++) {
+    for (let i = 0; i < newListing.pictures.length; ++i) {
       formData.append("picture-" + i, newListing.pictures[i].file);
     }
     const clone = structuredClone(newListing);

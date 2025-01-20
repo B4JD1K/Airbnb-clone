@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.1.17:32769/airbnb_clone
-    username: superadmindb
-    password: superadmindb
+    url: jdbc:postgresql://127.0.0.1:5432/airbnb_clone
+    username: postgres
+    password: postgres
   liquibase:
     contexts: dev
     default_schema: airbnb_clone
