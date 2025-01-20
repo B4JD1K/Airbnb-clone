@@ -9,11 +9,16 @@ import {CreatedListing, NewListing} from "../model/listing.model";
 import {NewListingPicture} from "../model/picture.model";
 import {State} from "../../core/model/state.model";
 import {CategoryName} from "../../layout/navbar/category/category.model";
+import {FooterStepComponent} from "../../shared/footer-step/footer-step.component";
+import {CategoryStepComponent} from "./step/category-step/category-step.component";
 
 @Component({
   selector: 'app-properties-create',
   standalone: true,
-  imports: [],
+  imports: [
+    FooterStepComponent,
+    CategoryStepComponent
+  ],
   templateUrl: './properties-create.component.html',
   styleUrl: './properties-create.component.scss'
 })
@@ -161,5 +166,9 @@ export class PropertiesCreateComponent implements OnDestroy {
 
   onCategoryChange(newCategory: CategoryName): void {
     this.newListing.category = newCategory;
+  }
+
+  onValidityChange(validity: boolean) {
+    this.currentStep.isValid = validity;
   }
 }
