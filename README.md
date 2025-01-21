@@ -81,12 +81,7 @@ Airbnb-clone/
 3. Configure the PostgreSQL database:
     - Ensure that PostgreSQL is running.
     - Update the database credentials in the `application.properties` or `application.yml` file.
-4. Start the Spring Boot application:
-    - Using the terminal:
-      ```bash
-      ./mvnw spring-boot:run -Dspring-boot.run.arguments="--AUTH0_CLIENT_ID=<client-id> --AUTH0_CLIENT_SECRET=<client-secret>"
-      ```
-    - Or, run the application directly from IntelliJ.
+4. Start the Spring Boot application directly from IntelliJ.
 5. The backend server will run on:
     ```text
     http://localhost:8080
