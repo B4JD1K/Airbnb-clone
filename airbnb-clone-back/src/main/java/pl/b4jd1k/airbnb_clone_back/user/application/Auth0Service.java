@@ -53,7 +53,7 @@ public class Auth0Service {
   }
 
   private String getAccessToken() throws Auth0Exception {
-    AuthAPI authAPI = AuthAPI.newBuilder(clientId, clientSecret, domain).build();
+    AuthAPI authAPI = AuthAPI.newBuilder(domain, clientId, clientSecret).build();
     TokenRequest tokenRequest = authAPI.requestToken(domain + "api/v2/");
     TokenHolder holder = tokenRequest.execute().getBody();
     return holder.getAccessToken();

@@ -4,7 +4,6 @@ logging:
     org.hibernate.SQL: DEBUG
     pl.b4jd1k.airbnb_clone_back: DEBUG
 
-
 spring:
   docker:
     compose:
