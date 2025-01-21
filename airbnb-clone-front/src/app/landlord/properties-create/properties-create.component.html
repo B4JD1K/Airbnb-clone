@@ -3,13 +3,12 @@
     @case (CATEGORY) {
       <app-category-step [categoryName]="newListing.category"
                          (categoryChange)="onCategoryChange($event)"
-                         (stepValidityChange)="onValidityChange($event)"></app-category-step>
+                         (stepValidityChange)="onValidityChange($event)"/>
     }
     @case (LOCATION) {
       <app-location-step [location]="newListing.location"
                          (locationChange)="onLocationChange($event)"
-                         (stepValidityChange)="onValidityChange($event)"
-      ></app-location-step>
+                         (stepValidityChange)="onValidityChange($event)"/>
     }
     @case (INFO) {
       <div class="mb-5">
@@ -17,14 +16,18 @@
         <h2 class="mt-0">You'll add more details later, like bed types.</h2>
         <app-info-step [infos]="newListing.infos"
                        (infoChange)="onInfoChange($event)"
-                       (stepValidityChange)="onValidityChange($event)"
-        ></app-info-step>
+                       (stepValidityChange)="onValidityChange($event)"/>
       </div>
     }
     @case (PHOTOS) {
       <app-picture-step [pictures]="newListing.pictures"
                         (picturesChange)="onPictureChange($event)"
-                        (stepValidityChange)="onValidityChange($event)"></app-picture-step>
+                        (stepValidityChange)="onValidityChange($event)"/>
+    }
+    @case (DESCRIPTION) {
+      <app-description-step [description]="newListing.description"
+                            (descriptionChange)="onDescriptionChange($event)"
+                            (stepValidityChange)="onValidityChange($event)"/>
     }
   }
 </div>
@@ -33,4 +36,4 @@
                  [loading]="loadingCreation"
                  (finish)="createListing()"
                  (next)="nextStep()"
-                 (previous)="previousStep()"></app-footer-step>
+                 (previous)="previousStep()"/>

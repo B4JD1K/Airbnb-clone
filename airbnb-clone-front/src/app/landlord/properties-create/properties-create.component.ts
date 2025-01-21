@@ -5,7 +5,7 @@ import {ToastService} from "../../layout/toast.service";
 import {AuthService} from "../../core/auth/auth.service";
 import {Router} from "@angular/router";
 import {Step} from "./step.model";
-import {CreatedListing, NewListing, NewListingInfo} from "../model/listing.model";
+import {CreatedListing, Description, NewListing, NewListingInfo} from "../model/listing.model";
 import {NewListingPicture} from "../model/picture.model";
 import {State} from "../../core/model/state.model";
 import {CategoryName} from "../../layout/navbar/category/category.model";
@@ -14,6 +14,7 @@ import {CategoryStepComponent} from "./step/category-step/category-step.componen
 import {LocationStepComponent} from "./step/location-step/location-step.component";
 import {InfoStepComponent} from "./step/info-step/info-step.component";
 import {PictureStepComponent} from "./step/picture-step/picture-step.component";
+import {DescriptionStepComponent} from "./step/description-step/description-step.component";
 
 @Component({
   selector: 'app-properties-create',
@@ -23,7 +24,8 @@ import {PictureStepComponent} from "./step/picture-step/picture-step.component";
     CategoryStepComponent,
     LocationStepComponent,
     InfoStepComponent,
-    PictureStepComponent
+    PictureStepComponent,
+    DescriptionStepComponent
   ],
   templateUrl: './properties-create.component.html',
   styleUrl: './properties-create.component.scss'
@@ -188,5 +190,9 @@ export class PropertiesCreateComponent implements OnDestroy {
 
   onPictureChange(newPictures: NewListingPicture[]) {
     this.newListing.pictures = newPictures;
+  }
+
+  onDescriptionChange(newDescription: Description) {
+    this.newListing.description = newDescription;
   }
 }
