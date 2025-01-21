@@ -3,8 +3,12 @@ package pl.b4jd1k.airbnb_clone_back.listing.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.CreateListingDTO;
+import pl.b4jd1k.airbnb_clone_back.listing.application.dto.DisplayCardListingDTO;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.SaveListingDTO;
+import pl.b4jd1k.airbnb_clone_back.listing.application.dto.vo.PriceVO;
 import pl.b4jd1k.airbnb_clone_back.listing.domain.Listing;
+
+import java.util.List;
 
 // mapper MapStructa, który generuje kod konwertujący między DTO a encjami
 // wskazuje, że ListingMapper może korzystać z innego mappera do mapowania obiektów powiązanych
@@ -35,4 +39,14 @@ public interface ListingMapper {
 
   // mapuje obiekt Listing na obiekt CreateListingDTO
   CreateListingDTO listingToCreatedListingDTO(Listing listing);
+
+  @Mapping(target = "cover", source = "pictures")
+  List<DisplayCardListingDTO> listingToDisplayCardListingDTOs(List<Listing> listings);
+
+  @Mapping(target = "cover", source = "pictures", qualifiedByName = "extract-cover")
+  DisplayCardListingDTO listingToDisplayCardListingDTO(Listing listing);
+
+  default PriceVO mapPriceToPriceVO(int price){
+    return new PriceVO(price);
+  }
 }
