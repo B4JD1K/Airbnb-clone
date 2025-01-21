@@ -10,5 +10,5 @@ public record DisplayCardListingDTO(PriceVO price,
                                     String location,
                                     PictureDTO cover,
                                     BookingCategory bookingCategory,
-                                    UUID priceId) {
+                                    UUID publicId) {
 }
