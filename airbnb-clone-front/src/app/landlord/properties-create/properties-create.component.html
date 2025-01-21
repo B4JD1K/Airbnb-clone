@@ -29,6 +29,11 @@
                             (descriptionChange)="onDescriptionChange($event)"
                             (stepValidityChange)="onValidityChange($event)"/>
     }
+    @case (PRICE) {
+      <app-price-step [price]="newListing.price"
+                      (priceChange)="onPriceChange($event)"
+                      (stepValidityChange)="onValidityChange($event)"/>
+    }
   }
 </div>
 <app-footer-step [currentStep]="currentStep"

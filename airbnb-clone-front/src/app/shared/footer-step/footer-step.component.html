@@ -11,7 +11,8 @@
     </button>
   } @else {
     <button class="p-button flex align-items-center" id="create-listing"
-            (click)="onFinish()" [disabled]="isAllStepsValid() || loading()">
+            (click)="onFinish()" [disabled]="!isAllStepsValid() || loading()"
+            [class.p-disabled]="!isAllStepsValid() || loading()">
       <div class="btn-create">{{ labelFinishedBtn() }}</div>
       @if (loading()) {
         <fa-icon class="ml-2" icon="circle-notch" animation="spin"></fa-icon>
