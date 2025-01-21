@@ -13,6 +13,7 @@ import {FooterStepComponent} from "../../shared/footer-step/footer-step.componen
 import {CategoryStepComponent} from "./step/category-step/category-step.component";
 import {LocationStepComponent} from "./step/location-step/location-step.component";
 import {InfoStepComponent} from "./step/info-step/info-step.component";
+import {PictureStepComponent} from "./step/picture-step/picture-step.component";
 
 @Component({
   selector: 'app-properties-create',
@@ -21,7 +22,8 @@ import {InfoStepComponent} from "./step/info-step/info-step.component";
     FooterStepComponent,
     CategoryStepComponent,
     LocationStepComponent,
-    InfoStepComponent
+    InfoStepComponent,
+    PictureStepComponent
   ],
   templateUrl: './properties-create.component.html',
   styleUrl: './properties-create.component.scss'
@@ -182,5 +184,9 @@ export class PropertiesCreateComponent implements OnDestroy {
 
   onInfoChange(newInfo: NewListingInfo) {
     this.newListing.infos = newInfo;
+  }
+
+  onPictureChange(newPictures: NewListingPicture[]) {
+    this.newListing.pictures = newPictures;
   }
 }
