@@ -44,6 +44,7 @@ public class LandlordResource {
     this.userService = userService;
   }
 
+  @PostMapping(value = "/create",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<CreateListingDTO> create(
     MultipartHttpServletRequest request,
     @RequestPart(name = "dto") String saveListingDTOString
