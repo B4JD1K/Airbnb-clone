@@ -13,13 +13,14 @@ export class CountryService {
 
   private countries$: WritableSignal<State<Array<Country>>> =
     signal(State.Builder<Array<Country>>().forInit());
-  countries = computed(() => this.countries$);
+  countries = computed(() => this.countries$());
 
   private fetchCountry$ = new Observable<Array<Country>>();
 
 
   constructor() {
     this.initFetchGetAllCountries();
+    this.fetchCountry$.subscribe();
   }
 
   // pobieranie danych z .json, dzięki signalowi zapisuje odpowiedni stan

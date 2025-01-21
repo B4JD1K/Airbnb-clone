@@ -5,6 +5,12 @@
                          (categoryChange)="onCategoryChange($event)"
                          (stepValidityChange)="onValidityChange($event)"></app-category-step>
     }
+    @case (LOCATION){
+      <app-location-step [location]="newListing.location"
+                         (locationChange)="onLocationChange($event)"
+                         (stepValidityChange)="onValidityChange($event)"
+                         ></app-location-step>
+    }
   }
 </div>
 <app-footer-step [currentStep]="currentStep"
