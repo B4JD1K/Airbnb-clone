@@ -2,6 +2,7 @@ package pl.b4jd1k.airbnb_clone_back.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +26,8 @@ public class SecurityConfiguration {
     CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
     requestHandler.setCsrfRequestAttributeName(null);
     http.authorizeHttpRequests(authorize -> authorize // konfiguracja reguł autoryzacji
+        .requestMatchers(HttpMethod.GET, "api/tenant-listing/get-all-by-category").permitAll() // endpoint jest dostępny nawet dla osób które nie są zalogowane
+        .requestMatchers(HttpMethod.GET, "assets/*").permitAll() // dostęp do assetów (np. countries.json)
         .anyRequest().authenticated()) // wymaga uwierzytelnienia dla każdego żądania, każdy endpoint wymaga zalogowania
       .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // konf. zabezpieczeń CSRF, używa ciasteczek do przechowywania tokena CSRF
         .csrfTokenRequestHandler(requestHandler))
