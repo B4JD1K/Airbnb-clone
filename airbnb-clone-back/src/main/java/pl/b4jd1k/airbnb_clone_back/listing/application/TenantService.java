@@ -27,7 +27,7 @@ public class TenantService {
 
   public Page<DisplayCardListingDTO> getAllByCategory(Pageable pageable, BookingCategory category) {
     Page<Listing> allOrBookingCategory;
-    if (category == = BookingCategory.ALL) {
+    if (category == BookingCategory.ALL) {
       allOrBookingCategory = listingRepository.findAllWithCoverOnly(pageable);
     } else {
       allOrBookingCategory = listingRepository.findAllByBookingCategoryWithCoverOnly(pageable,category);

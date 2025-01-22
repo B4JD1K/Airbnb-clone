@@ -23,7 +23,7 @@ public class TenantResource {
 
   @GetMapping("/get-all-by-category")
   public ResponseEntity<Page<DisplayCardListingDTO>> findAllByBookingCategory(Pageable pageable,
-                                                                             @RequestParam BookingCategory bookingCategory) {
-    return ResponseEntity.ok(tenantService.getAllByCategory(pageable,bookingCategory));
+                                                                             @RequestParam BookingCategory category) {
+    return ResponseEntity.ok(tenantService.getAllByCategory(pageable, category));
   }
 }
