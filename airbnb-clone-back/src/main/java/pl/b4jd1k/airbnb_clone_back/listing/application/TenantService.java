@@ -50,7 +50,7 @@ public class TenantService {
 
     if (listingByPublicIdOpt.isEmpty()) {
       return State.<DisplayListingDTO, String>builder()
-        .forError(String.format("Listing doesn't exist for publicId: %s", publicId));
+        .forError(String.format("Listing doesn't exist for publicId:", publicId));
     }
 
     DisplayListingDTO displayListingDTO = listingMapper.listingToDisplayListingDTO(listingByPublicIdOpt.get());
