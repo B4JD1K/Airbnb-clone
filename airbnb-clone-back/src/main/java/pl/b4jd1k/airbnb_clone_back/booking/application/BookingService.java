@@ -105,6 +105,7 @@ public class BookingService {
                 .toList();
     }
 
+    @Transactional
     public State<UUID, String> cancel(UUID bookingPublicId, UUID listingPublicId) {
         ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
         int deleteSuccess = bookingRepository.deleteBookingByFkTenantAndPublicId(connectedUser.publicId(), bookingPublicId);
