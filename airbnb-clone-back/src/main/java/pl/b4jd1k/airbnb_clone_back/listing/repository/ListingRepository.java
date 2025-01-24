@@ -30,4 +30,6 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
   // ładowanie tylko jednego ogłoszenia
   Optional<Listing> findByPublicId(UUID publicId);
+
+  List<Listing> findAllByPublicIdIn(List<UUID> allListingPublicIDs);
 }
