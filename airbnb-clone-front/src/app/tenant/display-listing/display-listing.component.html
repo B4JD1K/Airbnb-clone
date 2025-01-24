@@ -13,7 +13,7 @@
     <div id="content" class="flex-grow-1 mr-7">
       <div class="text-xl font-bold">{{ listing.location }}</div>
       <ol>
-        <li>{{ listing.infos.guests.value }} guests</li>
+        <li>{{ listing.infos.guests.value }}</li>
         <li>
           <fa-icon icon="circle"/>
           <span>{{ listing.infos.bedrooms.value }} bedrooms</span>
@@ -32,14 +32,13 @@
         <fa-icon class="ml-2" [icon]="category?.icon!" size="2x"/>
         <div class="ml-4">This house is of type {{ category?.displayName }}</div>
       </div>
+    </div>
     <div class="border-1 my-4 w-full border-solid border-200"></div>
     <div class="landlord flex justify-content-start align-items-center">
       <app-avatar [imageUrl]="listing.landlord.imageUrl" avatarSize="avatar-xl"/>
       <div class="font-bold ml-3">Hosted by {{ listing.landlord.firstName }}</div>
     </div>
     <div class="border-1 my-4 w-full border-solid border-200"></div>
-    <div>{{ listing.description.description.value }}</div>
-    </div>
   </div>
 }
 
