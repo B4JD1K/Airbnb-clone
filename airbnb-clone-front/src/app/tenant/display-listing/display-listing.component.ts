@@ -12,7 +12,6 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AvatarComponent} from "../../layout/navbar/avatar/avatar.component";
 import {BookDateComponent} from "../book-date/book-date.component";
 
-
 @Component({
   selector: 'app-display-listing',
   standalone: true,
