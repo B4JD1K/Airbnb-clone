@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.b4jd1k.airbnb_clone_back.booking.application.BookingService;
 import pl.b4jd1k.airbnb_clone_back.booking.application.dto.BookedDateDTO;
+import pl.b4jd1k.airbnb_clone_back.booking.application.dto.BookedListingDTO;
 import pl.b4jd1k.airbnb_clone_back.booking.application.dto.NewBookingDTO;
 import pl.b4jd1k.airbnb_clone_back.sharedkernel.service.State;
 import pl.b4jd1k.airbnb_clone_back.sharedkernel.service.StatusNotification;
@@ -18,25 +19,41 @@ import java.util.UUID;
 @RequestMapping("/api/booking")
 public class BookingResource {
 
-  private final BookingService bookingService;
+    private final BookingService bookingService;
 
-  public BookingResource(BookingService bookingService) {
-    this.bookingService = bookingService;
-  }
-
-  @PostMapping("create")
-  public ResponseEntity<Boolean> create(@Valid @RequestBody NewBookingDTO newBookingDTO) {
-    State<Void, String> createState = bookingService.create(newBookingDTO);
-    if (createState.getStatus().equals(StatusNotification.ERROR)) {
-      ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, createState.getError());
-      return ResponseEntity.of(problemDetail).build();
-    } else {
-      return ResponseEntity.ok(true);
+    public BookingResource(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
-  }
 
-  @GetMapping("check-availability")
-  public ResponseEntity<List<BookedDateDTO>> checkAvailability(@RequestParam UUID listingPublicId) {
-    return ResponseEntity.ok(bookingService.checkAvailability(listingPublicId));
-  }
+    @PostMapping("create")
+    public ResponseEntity<Boolean> create(@Valid @RequestBody NewBookingDTO newBookingDTO) {
+        State<Void, String> createState = bookingService.create(newBookingDTO);
+        if (createState.getStatus().equals(StatusNotification.ERROR)) {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, createState.getError());
+            return ResponseEntity.of(problemDetail).build();
+        } else {
+            return ResponseEntity.ok(true);
+        }
+    }
+
+    @GetMapping("check-availability")
+    public ResponseEntity<List<BookedDateDTO>> checkAvailability(@RequestParam UUID listingPublicId) {
+        return ResponseEntity.ok(bookingService.checkAvailability(listingPublicId));
+    }
+
+    @GetMapping("get-booked-listing")
+    public ResponseEntity<List<BookedListingDTO>> getBookedListing() {
+        return ResponseEntity.ok(bookingService.getBookedListing());
+    }
+
+    @DeleteMapping("cancel")
+    public ResponseEntity<UUID> cancel(@RequestParam UUID bookingPublicId, @RequestParam UUID listingPublicId) {
+        State<UUID, String> cancelState = bookingService.cancel(bookingPublicId, listingPublicId);
+        if (cancelState.getStatus().equals(StatusNotification.ERROR)) {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, cancelState.getError());
+            return ResponseEntity.of(problemDetail).build();
+        } else {
+            return ResponseEntity.ok(bookingPublicId);
+        }
+    }
 }
