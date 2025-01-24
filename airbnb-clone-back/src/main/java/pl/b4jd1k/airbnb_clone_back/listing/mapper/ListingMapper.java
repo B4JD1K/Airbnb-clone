@@ -2,10 +2,7 @@ package pl.b4jd1k.airbnb_clone_back.listing.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.b4jd1k.airbnb_clone_back.listing.application.dto.CreateListingDTO;
-import pl.b4jd1k.airbnb_clone_back.listing.application.dto.DisplayCardListingDTO;
-import pl.b4jd1k.airbnb_clone_back.listing.application.dto.DisplayListingDTO;
-import pl.b4jd1k.airbnb_clone_back.listing.application.dto.SaveListingDTO;
+import pl.b4jd1k.airbnb_clone_back.listing.application.dto.*;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.vo.PriceVO;
 import pl.b4jd1k.airbnb_clone_back.listing.domain.Listing;
 
@@ -61,4 +58,7 @@ public interface ListingMapper {
   @Mapping(target = "category", source = "bookingCategory")
   @Mapping(target = "price.value", source = "price")
   DisplayListingDTO listingToDisplayListingDTO(Listing listing);
+
+  @Mapping(target = "listingPublicId", source = "publicId")
+  ListingCreateBookingDTO mapListingToListingCreateBookingDTO(Listing listing);
 }
