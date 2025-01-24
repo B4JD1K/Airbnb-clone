@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.CreateListingDTO;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.DisplayCardListingDTO;
+import pl.b4jd1k.airbnb_clone_back.listing.application.dto.ListingCreateBookingDTO;
 import pl.b4jd1k.airbnb_clone_back.listing.application.dto.SaveListingDTO;
 import pl.b4jd1k.airbnb_clone_back.listing.domain.Listing;
 import pl.b4jd1k.airbnb_clone_back.listing.mapper.ListingMapper;
@@ -14,6 +15,7 @@ import pl.b4jd1k.airbnb_clone_back.user.application.UserService;
 import pl.b4jd1k.airbnb_clone_back.user.application.dto.ReadUserDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 // zarządzanie ogłoszeniami - tworzenie, przypisywanie zdjęć, ustawia odpowiednią rolę użytkownikowi itp
@@ -64,5 +66,9 @@ public class LandlordService {
     } else {
       return State.<UUID, String>builder().forUnauthorized("User not authorized to delete this listing");
     }
+  }
+
+  public Optional<ListingCreateBookingDTO> getByListingPublicId(UUID publicId) {
+    return listingRepository.findByPublicId(publicId).map(listingMapper::mapListingToListingCreateBookingDTO);
   }
 }
