@@ -64,11 +64,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private listenToGetAllCategory() {
     effect(() => {
-      const categoryListingState = this.tenantListingService.getAllByCategorySig();
-      if (categoryListingState.status === "OK") {
-        this.listings = categoryListingState.value?.content;
+      const categoryListingsState = this.tenantListingService.getAllByCategorySig();
+      if (categoryListingsState.status === "OK") {
+        this.listings = categoryListingsState.value?.content;
         this.loading = false;
-      } else if (categoryListingState.status === "ERROR") {
+      } else if (categoryListingsState.status === "ERROR") {
         this.toastService.send({
           severity: "error", summary: "Error", detail: "Error when fetching the listing"
         });
