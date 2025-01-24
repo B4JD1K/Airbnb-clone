@@ -8,6 +8,7 @@ import pl.b4jd1k.airbnb_clone_back.listing.domain.BookingCategory;
 import pl.b4jd1k.airbnb_clone_back.listing.domain.Listing;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ListingRepository extends JpaRepository<Listing, Long> {
@@ -26,4 +27,7 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
   @Query("SELECT listing FROM Listing listing LEFT JOIN FETCH listing.pictures picture" +
     " WHERE picture.isCover = true")
   Page<Listing> findAllWithCoverOnly(Pageable pageable);
+
+  // ładowanie tylko jednego ogłoszenia
+  Optional<Listing> findByPublicId(UUID publicId);
 }
