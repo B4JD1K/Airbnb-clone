@@ -2,7 +2,6 @@ package pl.b4jd1k.airbnb_clone_back.booking.application;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestClient;
 import pl.b4jd1k.airbnb_clone_back.booking.application.dto.BookedDateDTO;
 import pl.b4jd1k.airbnb_clone_back.booking.application.dto.BookedListingDTO;
 import pl.b4jd1k.airbnb_clone_back.booking.application.dto.NewBookingDTO;
@@ -30,15 +29,13 @@ public class BookingService {
   private final BookingMapper bookingMapper;
   private final UserService userService;
   private final LandlordService landlordService;
-  private final RestClient.Builder builder;
 
   public BookingService(BookingRepository bookingRepository, BookingMapper bookingMapper,
-                        UserService userService, LandlordService landlordService, RestClient.Builder builder) {
+                        UserService userService, LandlordService landlordService) {
     this.bookingRepository = bookingRepository;
     this.bookingMapper = bookingMapper;
     this.userService = userService;
     this.landlordService = landlordService;
-    this.builder = builder;
   }
 
   @Transactional
