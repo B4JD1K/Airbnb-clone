@@ -27,7 +27,7 @@ export class CardListingComponent {
   deleteListing = new EventEmitter<CardListing>();
 
   @Output()
-  cancelListing = new EventEmitter<BookedListing>();
+  cancelBooking = new EventEmitter<BookedListing>();
 
   bookingListing: BookedListing | undefined;
   cardListing: CardListing | undefined;
@@ -35,7 +35,6 @@ export class CardListingComponent {
   router = inject(Router);
   categoryService = inject(CategoryService);
   countryService = inject(CountryService);
-
 
   constructor() {
     this.listenToListing();
@@ -72,7 +71,7 @@ export class CardListingComponent {
   }
 
   onCancelBooking(bookedListing: BookedListing) {
-    this.cancelListing.emit(bookedListing);
+    this.cancelBooking.emit(bookedListing);
   }
 
   onClickCard(publicId: string) {

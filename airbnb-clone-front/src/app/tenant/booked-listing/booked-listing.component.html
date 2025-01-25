@@ -2,7 +2,7 @@
 <h2>Past and Next booking</h2>
 <div class="listing-grid">
   @for (bookedListing of bookedListings; track bookedListing.bookingPublicId) {
-    <app-card-listing [listing]="bookedListings" [cardMode]="'booking'"
+    <app-card-listing [listing]="bookedListing" [cardMode]="'booking'"
                       (cancelBooking)="onCancelBooking($event)"/>
   }
 </div>
