@@ -54,12 +54,6 @@ export class LandlordListingService {
   }
 
   delete(publicId: string): void {
-    // dodano logi by znaleźć przyczynę błędów z usunięciem ogłoszenia
-    // console.log('Deleting listing with publicId:', publicId);
-    // if (!publicId) {
-    // console.error('publicId is undefined or empty');
-    //   return;
-    // }
     const params = new HttpParams().set("publicId", publicId);
     this.http.delete<string>(`${environment.API_URL}/landlord-listing/delete`, {params})
       .subscribe({

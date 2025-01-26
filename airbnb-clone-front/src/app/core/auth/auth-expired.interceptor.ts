@@ -11,10 +11,9 @@ export const authExpired: HttpInterceptorFn = (
   return next(req).pipe(
     tap({
         error: (err: HttpErrorResponse) => {
-          // obsługa błędu 401 (brak uwierzytelnienia)
           if (err.status === 401 && err.url &&
             !err.url.includes("/api/auth") && authService.isAuthenticated()) {
-            authService.login(); // przekierowanie na stronę logowania
+            authService.login();
           }
         }
       }

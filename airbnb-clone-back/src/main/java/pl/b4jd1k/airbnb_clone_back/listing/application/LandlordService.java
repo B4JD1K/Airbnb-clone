@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-// zarządzanie ogłoszeniami - tworzenie, przypisywanie zdjęć, ustawia odpowiednią rolę użytkownikowi itp
 @Service
 public class LandlordService {
   private final ListingRepository listingRepository;
@@ -52,14 +51,13 @@ public class LandlordService {
   }
 
   @Transactional(readOnly = true)
-  public List<DisplayCardListingDTO> getAllProperties(ReadUserDTO landlord){
+  public List<DisplayCardListingDTO> getAllProperties(ReadUserDTO landlord) {
     List<Listing> properties = listingRepository.findAllByLandlordPublicIdFetchCoverPicture(landlord.publicId());
     return listingMapper.listingToDisplayCardListingDTOs(properties);
   }
 
   @Transactional
-  public State<UUID,String> delete(UUID publicId, ReadUserDTO landlord) {
-    // tylko landlord o id 'landlord.publicId()' może usunąć ogłoszenie o id 'publicId'
+  public State<UUID, String> delete(UUID publicId, ReadUserDTO landlord) {
     long deletedSuccessfully = listingRepository.deleteByPublicIdAndLandlordPublicId(publicId, landlord.publicId());
     if (deletedSuccessfully > 0) {
       return State.<UUID, String>builder().forSuccess(publicId);

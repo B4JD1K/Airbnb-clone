@@ -16,7 +16,6 @@ import pl.b4jd1k.airbnb_clone_back.user.application.dto.ReadUserDTO;
 import java.util.List;
 import java.util.UUID;
 
-// integracja z Auth0 i zarządzanie rolami użytkowników (przypisanie 'landlord' użytkownikowi, dzięki czemu może mieć dostęp do praw tej roli)
 @Service
 public class Auth0Service {
 

@@ -71,7 +71,6 @@ public class TenantService {
   @Transactional(readOnly = true)
   public Page<DisplayCardListingDTO> search(Pageable pageable, SearchDTO newSearch) {
 
-    // wyszukiwanie ogłoszeń zgodnie z podanymi kryteriami
     Page<Listing> allMatchedListings = listingRepository.findAllByLocationAndBathroomsAndBedroomsAndGuestsAndBeds(
       pageable, newSearch.location(),
       newSearch.infos().baths().value(),
@@ -79,21 +78,14 @@ public class TenantService {
       newSearch.infos().guests().value(),
       newSearch.infos().beds().value());
 
-    // pobieranie UUID ogłoszeń
     List<UUID> listingsUUIDs = listingRepository.saveAll(allMatchedListings).stream().map(Listing::getPublicId).toList();
 
-    // sprawdzenie które ogłoszenia są zarezerwowane w podanym okresie
     List<UUID> bookingUUIDs = bookingService.getBookingMatchByListingIdsAndBookedDate(listingsUUIDs, newSearch.dates());
 
-    // filtrowanie dostępnych ogłoszeń
     List<DisplayCardListingDTO> listingsNotBooked = allMatchedListings.stream().filter(listing -> !bookingUUIDs.contains(listing.getPublicId()))
       .map(listingMapper::listingToDisplayCardListingDTO)
       .toList();
 
-    // zwrócenie stronicowanej listy wyników na podstawie:
-    // przefiltrowanych dostępnych ogłoszeń
-    // informacji o paginacji (dostarczonych przez użytkownika)
-    // całkowitej licznie dostępnych ogłoszeń - do okreeślenia cąłkowitej liczby stron
     return new PageImpl<>(listingsNotBooked, pageable, listingsNotBooked.size());
   }
 }

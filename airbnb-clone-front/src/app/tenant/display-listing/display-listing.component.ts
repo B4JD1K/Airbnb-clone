@@ -50,8 +50,6 @@ export class DisplayListingComponent implements OnInit, OnDestroy {
     this.extractIdParamFromRouter();
   }
 
-  // dodanie publicId do adresu url, aby po zamknięciu przeglądarki/karty lub otworzeniu
-  // konkretnego linku (razem z tym id) przekierowało wyświetlającego na daną ofertę
   private extractIdParamFromRouter() {
     this.activatedRoute.queryParams.pipe(
       map(params => params['id'])

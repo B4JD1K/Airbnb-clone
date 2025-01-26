@@ -23,7 +23,6 @@ export class CountryService {
     this.fetchCountry$.subscribe();
   }
 
-  // pobieranie danych z .json, dzięki signalowi zapisuje odpowiedni stan
   initFetchGetAllCountries(): void {
     this.fetchCountry$ = this.http.get<Array<Country>>("/assets/countries.json")
       .pipe(
@@ -33,11 +32,10 @@ export class CountryService {
           this.countries$.set(State.Builder<Array<Country>>().forError(err));
           return of(err);
         }),
-        shareReplay(1) // przesłanie sub-om ostatniej emitowanej wartości
+        shareReplay(1)
       );
   }
 
-  // wyszukanie kraju po kodzie (np USA, POL itp)
   public getCountryByCode(code: string): Observable<Country> {
     return this.fetchCountry$.pipe(
       map(countries => countries.filter(country => country.cca3 === code)),

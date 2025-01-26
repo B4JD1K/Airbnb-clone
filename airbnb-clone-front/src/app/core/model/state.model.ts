@@ -4,28 +4,24 @@ export type StatusNotification = 'OK' | 'ERROR' | 'INIT';
 
 export class State<T, V = HttpErrorResponse> {
   value?: T;
-  error?: V | HttpErrorResponse; // pozwala aby błąd był V ("własny" typ generyczny) lub HttpErrorResponse
+  error?: V | HttpErrorResponse;
   status: StatusNotification;
 
-  // utworzy obiekt stanu
   constructor(status: StatusNotification, value?: T, error?: V | HttpErrorResponse) {
     this.value = value;
     this.error = error;
     this.status = status;
   }
 
-  // zwraca nową instancję klasy pomocniczej 'StateBuilder'
-  // dzięki niej w wygodniejszy sposób będzie się budowało obiekty 'State'
   static Builder<T = any, V = HttpErrorResponse>() {
     return new StateBuilder<T, V>();
   }
 }
 
-// tworzenie obieków stanu 'State' odpowiedzi API (czy sukces, czy błąd, czy dopiero inicjuje)
 class StateBuilder<T, V = HttpErrorResponse> {
   private status: StatusNotification = 'INIT';
   private value?: T;
-  private error?: V | HttpErrorResponse; // jw. - pozwala aby błąd był V lub HttpErrorResponse
+  private error?: V | HttpErrorResponse;
 
   public forSuccess(value: T): State<T, V> {
     this.value = value;

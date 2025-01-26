@@ -16,19 +16,17 @@ public class ListingPicture extends AbstractAuditingEntity<Long> {
   @Column(name = "id")
   private Long id;
 
-  @ManyToOne // wiele ListingPicture może być powiązanych z jednym Listing
-  @JoinColumn(name = "listing_fk", referencedColumnName = "id") // listing foreign key wskazuje kolumnę w tabeli listing
+  @ManyToOne
+  @JoinColumn(name = "listing_fk", referencedColumnName = "id")
   private Listing listing;
 
-  @Lob // dla pliku binarnego, bloba itp - Lob = Large Object, będzie przechowywany w tablicy bajtów
+  @Lob
   @Column(name = "file", nullable = false)
   private byte[] file;
 
-  // określa typ pliku (np. image/jpeg czy image/png)
   @Column(name = "file_content_type")
   private String fileContentType;
 
-  // czy dane zdjęcie jest okładką
   @Column(name = "is_cover")
   private boolean isCover;
 

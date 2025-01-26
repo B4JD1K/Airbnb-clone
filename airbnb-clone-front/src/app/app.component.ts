@@ -13,20 +13,18 @@ import {ButtonModule} from "primeng/button";
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, ButtonModule, FontAwesomeModule, NavbarComponent, FooterComponent, ToastModule],
-  providers:[MessageService],
+  providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 
-  // wstrzykiwanie zależności serwisów
   faIconLibrary = inject(FaIconLibrary);
   toastService = inject(ToastService);
   messageService = inject(MessageService);
 
   isListingView = true;
 
-  // z inicjalizacją komponentu wywoływane są te metody
   ngOnInit(): void {
     this.initFontAwesome();
     this.listenToastService();
@@ -36,13 +34,9 @@ export class AppComponent implements OnInit {
     this.faIconLibrary.addIcons(...fontAwesomeIcons);
   }
 
-  // metoda 'nasłuchująca' komunikaty/popupy "Toast"
   private listenToastService() {
-    // subskrybuje strumień 'sendSub' z serwisu 'ToastService'
     this.toastService.sendSub.subscribe({
-      // odbiera wiadomości
       next: newMessage => {
-        // i jeżeli wiadomość różni się od początkowego 'INIT_STATE' to przekazuje je do 'MessageService'
         if (newMessage && newMessage.summary !== this.toastService.INIT_STATE) {
           this.messageService.add(newMessage);
         }

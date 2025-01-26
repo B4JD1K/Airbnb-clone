@@ -73,7 +73,6 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   }
 
   onDeleteListing(listing: CardListing): void {
-    console.log('Listing to delete:', listing); // Dodane logowanie
     listing.loading = true;
     this.landlordListingService.delete(listing.publicId);
   }

@@ -23,25 +23,6 @@ export class TenantListingService {
     signal(State.Builder<Listing>().forInit());
   getOneByPublicIdSig = computed(() => this.getOneByPublicId$());
 
-  /**
-   * Powyższy Sygnał jest używany do przechowywania i zarządzania stanem reaktywnie.
-   * Sygnały mogą być odczytywane, zapisywane, a także automatycznie powiadamiają subskrybentów o zmianachh stanu.
-   * Przykładowo:
-   * WritableSignal<State<Listing>> jest używany do zarządzania stanem pojedynczego ogłoszenia,
-   * pozwalając komponentom na reaktywne aktualizowanie się, gdy stan się zmienia
-   *
-   * Natomiast poniższy Subject jest typem obserwowalnym (z RxJS), ale nie jest używany do przechowywania stanu.
-   * Jest używany do emitowania wartości do wielu subskrybentów.
-   * Działają zarówno jako obserwator, jak i obserwowany, co oznacza, że mogą emitowaćnowe wartości i być subsrybowane.
-   * Przykładowo:
-   * Subject<State<Page<CardListing>>> jest używany do emitowania stanu operacji wyszukiwania,
-   * pozwalając wielu subskrybentom reagować na wyemitowane wartości.
-   *
-   * Podsumowanie:
-   * WritableSignal jest używany do przechowywania i zarządzania stanem reaktywnie.
-   * Subject jest używany do emitowania wartości do wielu subskrybentów.
-   */
-
   private search$: Subject<State<Page<CardListing>>> =
     new Subject<State<Page<CardListing>>>();
   search = this.search$.asObservable();
