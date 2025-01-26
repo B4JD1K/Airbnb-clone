@@ -15,6 +15,16 @@ The project includes key features such as:
 
 ---
 
+Main page:
+
+![Home View](https://imgur.com/a/2kvreUq)
+
+Listing View:
+
+![Listing View](https://imgur.com/a/EXyXyih)
+
+---
+
 ## ⚙️ Prerequisites
 
 ### 🖥️ Frontend
