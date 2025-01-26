@@ -17,12 +17,12 @@ The project includes key features such as:
 
 Main page:
 
-![Home View](https://imgur.com/a/2kvreUq)
+[![Main page](https://i.postimg.cc/gj9mrrvR/HOME.png)](https://postimg.cc/S2GwvS1N)
+
 
 Listing View:
 
-![Listing View](https://imgur.com/a/EXyXyih)
-
+[![Listing view](https://i.postimg.cc/BQB4QStL/Listing-view.png)](https://postimg.cc/8jcqZVRN)
 ---
 
 ## ⚙️ Prerequisites
