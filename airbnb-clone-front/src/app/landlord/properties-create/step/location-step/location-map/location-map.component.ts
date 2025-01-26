@@ -1,4 +1,4 @@
-import {Component, effect, EventEmitter, inject, Input, input, Output} from '@angular/core';
+import {Component, effect, EventEmitter, inject, input, Output} from '@angular/core';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {FormsModule} from "@angular/forms";
 import {AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent} from "primeng/autocomplete";
@@ -27,7 +27,6 @@ export class LocationMapComponent {
   private map: L.Map | undefined;
   private provider: OpenStreetMapProvider | undefined;
 
-  // pola do wprowadzenia
   location = input.required<string>();
   placeholder = input<string>("Select your home country");
 
@@ -80,7 +79,6 @@ export class LocationMapComponent {
     this.locationChange.emit(newCountry.cca3);
   }
 
-  // po zmianie lokalizacji (onLocationChange) zmiana wyświetlanej lokalizacji na mapie
   private listenToLocation() {
     effect(() => {
       const countriesState = this.countryService.countries();

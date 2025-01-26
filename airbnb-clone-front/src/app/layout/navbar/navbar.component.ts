@@ -12,7 +12,7 @@ import {AuthService} from "../../core/auth/auth.service";
 import {User} from "../../core/model/user.model";
 import {PropertiesCreateComponent} from "../../landlord/properties-create/properties-create.component";
 import {SearchComponent} from "../../tenant/search/search.component";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import dayjs from "dayjs";
 
 @Component({
@@ -36,7 +36,6 @@ export class NavbarComponent implements OnInit {
   guests = "Add guests";
   dates = "Any week";
 
-  // wstrzyknięcie zależności ToastService
   toastService = inject(ToastService);
   authService = inject(AuthService);
   dialogService = inject(DialogService);
@@ -51,12 +50,11 @@ export class NavbarComponent implements OnInit {
 
   connectedUser: User = {email: this.authService.notConnected};
 
-  // kiedy status użytkownika (stan) zmieni się - effect automatycznie zadziała i wykona swoją logikę
   constructor() {
     effect(() => {
       if (this.authService.fetchUser().status === "OK") {
         this.connectedUser = this.authService.fetchUser().value!;
-        this.currentMenuItems = this.fetchMenu(); // wygeneruje listę elementów menu, dostosowaną do uprawnień
+        this.currentMenuItems = this.fetchMenu();
       }
     });
   }

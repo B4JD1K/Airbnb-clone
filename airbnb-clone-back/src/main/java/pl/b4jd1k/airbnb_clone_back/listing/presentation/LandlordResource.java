@@ -1,10 +1,8 @@
 package pl.b4jd1k.airbnb_clone_back.listing.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
-import org.mapstruct.Mapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -32,7 +30,6 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// zbieranie danych i zdjęć ogłoszenia od użytkownika
 @RestController
 @RequestMapping("/api/landlord-listing")
 public class LandlordResource {
@@ -75,14 +72,6 @@ public class LandlordResource {
     }
   }
 
-  // konwersja plików multipart na obiekty PictureDTO
-
-  /**
-   * Definicja z : https://loadfocus.com/pl-pl/glossary/what-is-multipart-form-data-content-type
-   * Multipart/Form-Data jest typem zawartości używanym do wysyłania plików i danych w żądaniu HTTP,
-   * zwykle za pomocą metody POST. Pozwala na połączenie danych binarnych i tekstowych,
-   * co jest niezbędne do przesyłania plików.
-   */
   private static Function<MultipartFile, PictureDTO> mapMultiPartFileToPictureDTO() {
     return multipartFile -> {
       try {

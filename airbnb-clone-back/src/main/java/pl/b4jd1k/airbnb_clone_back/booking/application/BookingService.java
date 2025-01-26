@@ -58,7 +58,6 @@ public class BookingService {
 
     booking.setFkListing(listingCreateBookingDTO.listingPublicId());
 
-    // kto zrobił rezerwację (ofc user, który jest połączony)
     ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
     booking.setFkTenant(connectedUser.publicId());
     booking.setNumberOfTravelers(1);

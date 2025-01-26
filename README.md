@@ -18,16 +18,16 @@ The project includes key features such as:
 ## ⚙️ Prerequisites
 
 ### 🖥️ Frontend
-- Node.js v20.11 LTS
-- Angular CLI v17
-- PrimeNG v17
-- IDE: IntelliJ IDEA Ultimate, WebStorm, or VSCode
+- [Node.js v20.11 LTS](https://nodejs.org/en/)
+- [Angular CLI v17](https://angular.io/cli)
+- [PrimeNG v17](https://primeng.org/)
+- IDE: [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/), [WebStorm](https://www.jetbrains.com/webstorm/), or [VSCode](https://code.visualstudio.com/)
 
 ### 💾 Backend
-- JDK 21
-- Spring Boot 3
-- PostgreSQL
-- IDE: IntelliJ IDEA
+- [JDK 21](https://jdk.java.net/21/)
+- [Spring Boot 3](https://spring.io/projects/spring-boot)
+- [PostgreSQL](https://www.postgresql.org/)
+- IDE: [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ---
 
@@ -79,9 +79,14 @@ Airbnb-clone/
     ```
 2. Open the backend project in IntelliJ or your preferred IDE.
 3. Configure the PostgreSQL database:
-    - Ensure that PostgreSQL is running.
-    - Update the database credentials in the `application.properties` or `application.yml` file.
-4. Start the Spring Boot application directly from IntelliJ.
+  - Ensure that PostgreSQL is running.
+  - Update the database credentials in the `application.properties` or `application.yml` file.
+4. Start the Spring Boot application:
+  - Using the terminal:
+    ```bash
+    ./mvnw spring-boot:run -Dspring-boot.run.arguments="--AUTH0_CLIENT_ID=<client-id> --AUTH0_CLIENT_SECRET=<client-secret>"
+    ```
+  - Or, run the application directly from IntelliJ.
 5. The backend server will run on:
     ```text
     http://localhost:8080
@@ -95,16 +100,18 @@ Airbnb-clone/
   - Angular 17
   - PrimeNG 17
   - PrimeFlex 3
+
+
 - **Backend**:
   - Spring Boot 3
-  - PostgreSQL
+  - PostgreSQL 16.6
   - Auth0 (OAuth2)
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) for details.
+This project is licensed under the **MIT License**. See the [LICENSE](https://opensource.org/license/mit) for details.
 
 ---
 
