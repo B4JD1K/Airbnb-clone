@@ -28,6 +28,7 @@ public class SecurityConfiguration {
     http.authorizeHttpRequests(authorize -> authorize // konfiguracja reguł autoryzacji
         .requestMatchers(HttpMethod.GET, "api/tenant-listing/get-all-by-category").permitAll() // endpoint jest dostępny nawet dla osób które nie są zalogowane
         .requestMatchers(HttpMethod.GET, "api/tenant-listing/get-one").permitAll() // jak wyzej, ale dla jednej oferty
+        .requestMatchers(HttpMethod.POST, "api/tenant-listing/search").permitAll() // jak wyzej, ale dla jednej oferty
         .requestMatchers(HttpMethod.GET, "api/booking/check-availability").permitAll() // endpoint do sprawdzania dat rezerwacji
         .requestMatchers(HttpMethod.GET, "assets/*").permitAll() // dostęp do assetów (np. countries.json)
         .anyRequest().authenticated()) // wymaga uwierzytelnienia dla każdego żądania, każdy endpoint wymaga zalogowania
