@@ -1,4 +1,4 @@
-import {Component, effect, EventEmitter, inject, input, Output} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Input, input, Output} from '@angular/core';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {FormsModule} from "@angular/forms";
 import {AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent} from "primeng/autocomplete";
