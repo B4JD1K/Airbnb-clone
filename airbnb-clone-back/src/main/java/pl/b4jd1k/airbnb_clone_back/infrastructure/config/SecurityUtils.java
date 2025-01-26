@@ -25,8 +25,6 @@ public class SecurityUtils {
 
     String username = null;
 
-    // wszystkie poniższe 'attributes' dotyczą danych konta użytkownika
-    // jeśli wartość jest inna niż pusta to przypisać użytkownikowi
     if (attributes.get("preferred_username") != null) {
       username = ((String) attributes.get("preffered_username")).toLowerCase();
     }
@@ -53,7 +51,6 @@ public class SecurityUtils {
       user.setImageUrl((String) attributes.get("picture"));
     }
 
-    // mapowanie niestandardowych claims na role użytkownika
     if (attributes.get(CLAIMS_NAMESPACE) != null) {
       List<String> authoritiesRaw = (List<String>) attributes.get(CLAIMS_NAMESPACE);
       Set<Authority> authorities = authoritiesRaw.stream()
@@ -67,37 +64,32 @@ public class SecurityUtils {
     return user;
   }
 
-  // ekstraktuje listę ról z tokena i mapuje je na obiekty
   public static List<SimpleGrantedAuthority> extractAuthorityFromClaims(Map<String, Object> claims) {
     return mapRolesToGrantedAuthorities(getRolesFromClaims(claims));
   }
 
-  // pobiera role użytkownika z claims
   public static Collection<String> getRolesFromClaims(Map<String, Object> claims) {
     return (List<String>) claims.get(CLAIMS_NAMESPACE);
   }
 
-  // mapuje listę ról (jako string) zaczynających się od "ROLE_", na obiekty SimpleGrantedAuthority
   public static List<SimpleGrantedAuthority> mapRolesToGrantedAuthorities(Collection<String> roles) {
     return roles.stream()
-      .filter(role -> role.startsWith("ROLE_")) // filtruje role zaczynające się od "ROLE_"
-      .map(SimpleGrantedAuthority::new) // tworzy obiekty SimpleGrantedAuthority dla każdej roli
-      .toList(); // i zbiera wynik do listy
+      .filter(role -> role.startsWith("ROLE_"))
+      .map(SimpleGrantedAuthority::new)
+      .toList();
   }
 
-  // sprawdza czy zalogowany użytkownik ma co najmniej jedną z podanych ról (ROLE_XYZ)
   public static boolean hasCurrentUserAnyOfAuthorities(String... authorities) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    return (authentication != null && getAuthorities(authentication) // pobiera role użytkownika
-      .anyMatch(authority -> Arrays.asList(authorities).contains(authority))); // prawdza, czy którakolwiek nazwa roli użytkownika znajduje się w podanej tablicy 'authorities'
+    return (authentication != null && getAuthorities(authentication)
+      .anyMatch(authority -> Arrays.asList(authorities).contains(authority)));
   }
 
-  // pobiera strumień nazw ról z obiektu Authentication
   private static Stream<String> getAuthorities(Authentication authentication) {
     Collection<? extends GrantedAuthority> authorities = authentication
-      instanceof JwtAuthenticationToken jwtAuthenticationToken ? // jeśli authentication jest JwtAuthenticationToken
-      extractAuthorityFromClaims(jwtAuthenticationToken.getToken().getClaims()) : // to wyciąga role z claims
-      authentication.getAuthorities(); // w przeciwnym razie pobiera role bezpośrednio
-    return authorities.stream().map(GrantedAuthority::getAuthority); // następnie mapuje obiekty GrantedAuthority na nazwy ról
+      instanceof JwtAuthenticationToken jwtAuthenticationToken ?
+      extractAuthorityFromClaims(jwtAuthenticationToken.getToken().getClaims()) :
+      authentication.getAuthorities();
+    return authorities.stream().map(GrantedAuthority::getAuthority);
   }
 }

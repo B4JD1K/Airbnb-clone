@@ -27,31 +27,24 @@ public class UserService {
     this.userMapper = userMapper;
   }
 
-  // pobiera aktualnie uwierzytelnionego użytkownika z SecurityContext
   @Transactional(readOnly = true)
   public ReadUserDTO getAuthenticatedUserFromSecurityContext() {
-    // pobiera główny obiekt uwierzytelniony w SecurityContext
     OAuth2User principal = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    // mapuje atrybuty OAuth2 na obiekt User
     User user = SecurityUtils.mapOauth2AttributesToUser(principal.getAttributes());
-    return getByEmail(user.getEmail()).orElseThrow(); // pobiera użytkownika z bazy (na podst. emaila) lub rzuca wyjątek
+    return getByEmail(user.getEmail()).orElseThrow();
   }
 
   @Transactional(readOnly = true)
   public Optional<ReadUserDTO> getByEmail(String email) {
     Optional<User> oneByEmail = userRepository.findOneByEmail(email);
-    return oneByEmail.map(userMapper::readUserDTOToUser); // mapowanie obiektu User na DTO
+    return oneByEmail.map(userMapper::readUserDTOToUser);
   }
 
-  // synchronizuje użytkownika z zewnętrzymi Identity Provider (google, fb itp)
   public void syncWithIdp(OAuth2User oAuth2User, boolean forceResync) {
-
-    // pobiera mapę atrybutów z obiektu OAuth2User i mapuje je na obiekt User
     Map<String, Object> attributes = oAuth2User.getAttributes();
     User user = SecurityUtils.mapOauth2AttributesToUser(attributes);
 
-    // szuka użytkownika w bazie danych na podstawie emaila
     Optional<User> existingUser = userRepository.findOneByEmail(user.getEmail());
     if (existingUser.isPresent()) {
       if (attributes.get(UPDATED_AT_KEY) != null) {
@@ -59,14 +52,14 @@ public class UserService {
         Instant idpModifiedDate;
         if (attributes.get(UPDATED_AT_KEY) instanceof Instant instant) {
           idpModifiedDate = instant;
-        } else { // jeśli nie jest typem Instant, traktuje "updated_at" jako sekundowy timestamp i konwertuje
+        } else {
           idpModifiedDate = Instant.ofEpochSecond((Integer) attributes.get(UPDATED_AT_KEY));
         }
-        if (idpModifiedDate.isAfter(lastModifiedDate) || forceResync) { // jeśli data jest nowsza lub wymuszono synchronizację - aktualizuje użytkownika
+        if (idpModifiedDate.isAfter(lastModifiedDate) || forceResync) {
           updateUser(user);
         }
       }
-    } else { // jeśli użytkownik nie istnieje - zapisuje nowego użytkownika do bazy
+    } else {
       userRepository.saveAndFlush(user);
     }
   }
@@ -76,18 +69,16 @@ public class UserService {
     if (userToUpdateOpt.isPresent()) {
       User userToUpdate = userToUpdateOpt.get();
 
-      // aktualizacja danych użytkownika
       userToUpdate.setEmail(user.getEmail());
       userToUpdate.setFirstName(user.getFirstName());
       userToUpdate.setLastName(user.getLastName());
       userToUpdate.setAuthorities(user.getAuthorities());
       userToUpdate.setImageUrl(user.getImageUrl());
 
-      userRepository.saveAndFlush(userToUpdate); // zapis zmian w db
+      userRepository.saveAndFlush(userToUpdate);
     }
   }
 
-  // pobiera użytkownika z bazy na podstawie 'publicId' - szuka i mapuje na DTO
   public Optional<ReadUserDTO> getByPublicId(UUID publicId) {
     Optional<User> oneByPublicId = userRepository.findOneByPublicId(publicId);
     return oneByPublicId.map(userMapper::readUserDTOToUser);

@@ -65,9 +65,6 @@ export class BookDateComponent implements OnInit, OnDestroy {
   }
 
   validateMakeBooking() {
-    // potrzebujemy dwóch dat w tablicy (początku i końca), do tego
-    // pierwsza i druga nie mogą być "null" i muszą się różnić,
-    // i użytkownik musi byćuwieżytelniony
     return this.bookingDates.length == 2
       && this.bookingDates[0] !== null
       && this.bookingDates[1] !== null

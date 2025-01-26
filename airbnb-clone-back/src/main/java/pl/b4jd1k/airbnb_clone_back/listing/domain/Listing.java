@@ -44,19 +44,16 @@ public class Listing extends AbstractAuditingEntity<Long> {
   @Column(name = "price")
   private int price;
 
-  // BookingCategory jest typu enum (a nie class), dlatego podano taką adnotacje, a dodatkowo
-  @Enumerated(EnumType.STRING) // określa format zapisu jako string, każna nazwa jest zachowana w db
+  @Enumerated(EnumType.STRING)
   @Column(name = "category")
   private BookingCategory bookingCategory;
 
   @Column(name = "location")
   private String location;
 
-  // przechowuje uuid wynajmującego, który jest właścicielem ogłoszenia
   @Column(name = "landlord_public_id")
   private UUID landlordPublicId;
 
-  // reprezentacja zbioru powiązanych z ogłoszeniem zdjęć
   @OneToMany(mappedBy = "listing", cascade = CascadeType.REMOVE)
   private Set<ListingPicture> pictures = new HashSet<>();
 
@@ -169,12 +166,23 @@ public class Listing extends AbstractAuditingEntity<Long> {
   public boolean equals(Object o) {
     if (o == null || getClass() != o.getClass()) return false;
     Listing listing = (Listing) o;
-    return guests == listing.guests && bedrooms == listing.bedrooms && beds == listing.beds && bathrooms == listing.bathrooms && price == listing.price && Objects.equals(title, listing.title) && Objects.equals(description, listing.description) && bookingCategory == listing.bookingCategory && Objects.equals(location, listing.location) && Objects.equals(landlordPublicId, listing.landlordPublicId);
+    return guests == listing.guests
+      && bedrooms == listing.bedrooms
+      && beds == listing.beds
+      && bathrooms == listing.bathrooms
+      && price == listing.price
+      && Objects.equals(title, listing.title)
+      && Objects.equals(description, listing.description)
+      && bookingCategory == listing.bookingCategory
+      && Objects.equals(location, listing.location)
+      && Objects.equals(landlordPublicId, listing.landlordPublicId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, description, guests, bedrooms, beds, bathrooms, price, bookingCategory, location, landlordPublicId);
+    return Objects.hash(title, description,
+      guests, bedrooms, beds, bathrooms,
+      price, bookingCategory, location, landlordPublicId);
   }
 
   @Override

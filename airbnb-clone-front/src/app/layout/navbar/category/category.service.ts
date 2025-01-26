@@ -145,27 +145,20 @@ export class CategoryService {
   private changeCategory$ = new BehaviorSubject<Category>(this.getCategoryByDefault());
   changeCategoryObs = this.changeCategory$.asObservable();
 
-  // aktualizuje wybraną kategorię
   changeCategory(category: Category): void {
     this.changeCategory$.next(category);
   }
 
-  // zwraca listę wszystkich kategorii
   getCategories(): Category[] {
     return this.categories;
   }
 
-  // zwraca technicalName pierwszej kategorii jako domyślną
-  getCategoryByDefault(){
+  getCategoryByDefault() {
     return this.categories[0];
   }
 
-  // pobiera kategorię po jej technicalName
   getCategoryByTechnicalName(technicalName: CategoryName): Category | undefined {
     return this.categories.find(category => category.technicalName === technicalName);
-    // 1. przeszukuje this.categories,
-    // 2. sprawdza czy technicalName zgadza się,
-    // 3. zwraca znaleziony obiekt Category lub undefinied jeśli nie ma dopasowania
   }
 
   constructor() {

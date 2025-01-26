@@ -13,8 +13,6 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   styleUrl: './avatar.component.scss'
 })
 export class AvatarComponent {
-  // url avatara użytkownika - jeśli pusty lub null to ustawiona zostanie domyślna ikona
   imageUrl = input<string>();
-  // rozmiar avatara, przykazywany jako klasa do CSS
   avatarSize = input<"avatar-sm" | "avatar-xl">();
 }

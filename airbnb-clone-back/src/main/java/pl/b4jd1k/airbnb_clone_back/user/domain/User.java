@@ -13,8 +13,6 @@ import java.util.UUID;
 @Table(name = "airbnb_user")
 public class User extends AbstractAuditingEntity<Long> {
 
-  // @GeneratedValue - sposób generowania wartości 'id',
-  // @SequenceGenerator - definiuje generator sekwencji 'user_generator' o alokacji przyrastającej o 1
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequenceGenerator")
   @SequenceGenerator(name = "userSequenceGenerator", sequenceName = "user_generator", allocationSize = 1)
@@ -37,8 +35,6 @@ public class User extends AbstractAuditingEntity<Long> {
   @Column(name = "public_id", nullable = false)
   private UUID publicId;
 
-  // relacja w bazie danych pomiędzy 'user_id' a 'authority_name'
-  // każdy wiersz reprezentuje relację między użytkownikiem a jego rolą
   @ManyToMany
   @JoinTable(name = "user_authority",
     joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -102,13 +98,16 @@ public class User extends AbstractAuditingEntity<Long> {
     this.authorities = authorities;
   }
 
-  // porównywanie obiektów 'User' - oba są równe jeżeli mają takie same wartości pól
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(imageUrl, user.imageUrl) && Objects.equals(publicId, user.publicId);
+    return Objects.equals(lastName, user.lastName)
+      && Objects.equals(firstName, user.firstName)
+      && Objects.equals(email, user.email)
+      && Objects.equals(imageUrl, user.imageUrl)
+      && Objects.equals(publicId, user.publicId);
   }
 
   @Override

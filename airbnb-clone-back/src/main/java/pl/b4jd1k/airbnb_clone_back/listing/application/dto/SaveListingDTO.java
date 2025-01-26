@@ -10,71 +10,70 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-// pełna ilość danych wymaganych do zapisania nowej oferty
 public class SaveListingDTO {
 
-    @NotNull
-    BookingCategory category;
+  @NotNull
+  BookingCategory category;
 
-    @NotNull String location;
+  @NotNull String location;
 
-    @NotNull @Valid
-    ListingInfoDTO infos;
+  @NotNull @Valid
+  ListingInfoDTO infos;
 
-    @NotNull @Valid
-    DescriptionDTO description;
+  @NotNull @Valid
+  DescriptionDTO description;
 
-    @NotNull @Valid
-    PriceVO price;
+  @NotNull @Valid
+  PriceVO price;
 
-    @NotNull
-    List<PictureDTO> pictures;
+  @NotNull
+  List<PictureDTO> pictures;
 
-    public BookingCategory getCategory() {
-        return category;
-    }
+  public BookingCategory getCategory() {
+    return category;
+  }
 
-    public void setCategory(BookingCategory category) {
-        this.category = category;
-    }
+  public void setCategory(BookingCategory category) {
+    this.category = category;
+  }
 
-    public String getLocation() {
-        return location;
-    }
+  public String getLocation() {
+    return location;
+  }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
-    public ListingInfoDTO getInfos() {
-        return infos;
-    }
+  public ListingInfoDTO getInfos() {
+    return infos;
+  }
 
-    public void setInfos(ListingInfoDTO infos) {
-        this.infos = infos;
-    }
+  public void setInfos(ListingInfoDTO infos) {
+    this.infos = infos;
+  }
 
-    public DescriptionDTO getDescription() {
-        return description;
-    }
+  public DescriptionDTO getDescription() {
+    return description;
+  }
 
-    public void setDescription(DescriptionDTO description) {
-        this.description = description;
-    }
+  public void setDescription(DescriptionDTO description) {
+    this.description = description;
+  }
 
-    public PriceVO getPrice() {
-        return price;
-    }
+  public PriceVO getPrice() {
+    return price;
+  }
 
-    public void setPrice(PriceVO price) {
-        this.price = price;
-    }
+  public void setPrice(PriceVO price) {
+    this.price = price;
+  }
 
-    public List<PictureDTO> getPictures() {
-        return pictures;
-    }
+  public List<PictureDTO> getPictures() {
+    return pictures;
+  }
 
-    public void setPictures(List<PictureDTO> pictures) {
-        this.pictures = pictures;
-    }
+  public void setPictures(List<PictureDTO> pictures) {
+    this.pictures = pictures;
+  }
 }

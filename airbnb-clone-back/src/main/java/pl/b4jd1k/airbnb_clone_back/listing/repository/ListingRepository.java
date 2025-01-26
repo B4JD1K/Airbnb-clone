@@ -19,7 +19,6 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
   long deleteByPublicIdAndLandlordPublicId(UUID publicId, UUID landlordPublicId);
 
-  // pageable - poniewaz nie chcemy aby wszystkie rekordy z bazy sie ladowaly bo byloby to za duzo danych
   @Query("SELECT listing FROM Listing listing LEFT JOIN FETCH listing.pictures picture" +
     " WHERE picture.isCover = true AND listing.bookingCategory = :bookingCategory")
   Page<Listing> findAllByBookingCategoryWithCoverOnly(Pageable pageable, BookingCategory bookingCategory);
@@ -28,10 +27,12 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
     " WHERE picture.isCover = true")
   Page<Listing> findAllWithCoverOnly(Pageable pageable);
 
-  // ładowanie tylko jednego ogłoszenia
   Optional<Listing> findByPublicId(UUID publicId);
 
   List<Listing> findAllByPublicIdIn(List<UUID> allListingPublicIDs);
 
   Optional<Listing> findOneByPublicIdAndLandlordPublicId(UUID listingPublicId, UUID landlordPublicId);
+
+  Page<Listing> findAllByLocationAndBathroomsAndBedroomsAndGuestsAndBeds(
+    Pageable pageable, String location, int bathrooms, int bedrooms, int guests, int beds);
 }
